@@ -160,20 +160,20 @@ MyProject/PPO/model/ppo_model_epoch_{epoch}.pth
 
 DQN 用目标网络计算 TD 目标：
 
-$$
+```math
 y_t = r_t + \gamma \max_{a'} Q_{\theta^-}(s_{t+1}, a')
-$$
+```
 
 损失函数为：
 
-$$
+```math
 \mathcal{L}(\theta) =
 \operatorname{Huber}
 \left(
 Q_\theta(s_t, a_t),
 y_t
 \right)
-$$
+```
 
 其中，$\theta$ 表示策略网络参数，$\theta^-$ 表示目标网络参数。
 
@@ -181,7 +181,7 @@ $$
 
 代码中使用指数衰减的探索率：
 
-$$
+```math
 \epsilon_t =
 \epsilon_{\mathrm{end}}
 +
@@ -192,29 +192,29 @@ $$
 \left(
 -\frac{t}{\epsilon_{\mathrm{decay}}}
 \right)
-$$
+```
 
 ### Double DQN 目标值
 
 标准 DQN 的最大化操作容易带来 Q 值高估。Double DQN 将动作选择和动作评估拆开：
 
-$$
-a^\* =
+```math
+a^\ast =
 \arg\max_{a'} Q_\theta(s_{t+1}, a')
-$$
+```
 
-$$
+```math
 y_t =
 r_t
 +
-\gamma Q_{\theta^-}(s_{t+1}, a^\*)
-$$
+\gamma Q_{\theta^-}(s_{t+1}, a^\ast)
+```
 
 ### A3C 损失
 
 A3C 使用 Actor-Critic 结构，整体损失可写为：
 
-$$
+```math
 \mathcal{L}
 =
 \mathcal{L}_{\mathrm{actor}}
@@ -222,29 +222,29 @@ $$
 c_v \mathcal{L}_{\mathrm{critic}}
 -
 c_e \mathcal{H}(\pi_\theta)
-$$
+```
 
 其中：
 
-$$
+```math
 \mathcal{L}_{\mathrm{actor}}
 =
 -\log \pi_\theta(a_t \mid s_t) A_t
-$$
+```
 
-$$
+```math
 \mathcal{L}_{\mathrm{critic}}
 =
 \left(
 V_\theta(s_t) - R_t
 \right)^2
-$$
+```
 
 ### PPO 裁剪目标
 
 PPO 使用新旧策略概率比：
 
-$$
+```math
 r_t(\theta)
 =
 \frac{
@@ -252,11 +252,11 @@ r_t(\theta)
 }{
 \pi_{\theta_{\mathrm{old}}}(a_t \mid s_t)
 }
-$$
+```
 
 裁剪目标函数为：
 
-$$
+```math
 \mathcal{L}^{\mathrm{CLIP}}(\theta)
 =
 \mathbb{E}_t
@@ -272,13 +272,13 @@ r_t(\theta),
 \right) A_t
 \right)
 \right]
-$$
+```
 
 ### GAE 优势估计
 
 PPO 中使用 GAE 计算优势：
 
-$$
+```math
 \delta_t
 =
 r_t
@@ -286,15 +286,15 @@ r_t
 \gamma V(s_{t+1})
 -
 V(s_t)
-$$
+```
 
-$$
+```math
 A_t^{\mathrm{GAE}(\gamma,\lambda)}
 =
 \sum_{l=0}^{\infty}
 (\gamma \lambda)^l
 \delta_{t+l}
-$$
+```
 
 代码中对应参数为 `gamma = 0.99`、`Lambda = 0.95`。
 
@@ -442,4 +442,3 @@ GYM-RL/
 - [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347)
 - [High-Dimensional Continuous Control Using Generalized Advantage Estimation](https://arxiv.org/abs/1506.02438)
 - [Gym LunarLander 文档](https://www.gymlibrary.dev/environments/box2d/lunar_lander/)
-
