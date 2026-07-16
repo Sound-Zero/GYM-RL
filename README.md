@@ -168,7 +168,7 @@ y_t = r_t + \gamma \max_{a'} Q_{\theta^-}(s_{t+1}, a')
 
 ```math
 \mathcal{L}(\theta) =
-\operatorname{Huber}
+\mathrm{Huber}
 \left(
 Q_\theta(s_t, a_t),
 y_t
@@ -264,7 +264,7 @@ r_t(\theta)
 \min
 \left(
 r_t(\theta) A_t,
-\operatorname{clip}
+\mathrm{clip}
 \left(
 r_t(\theta),
 1-\epsilon,
